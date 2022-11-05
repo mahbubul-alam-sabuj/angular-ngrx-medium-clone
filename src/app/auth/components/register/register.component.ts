@@ -7,8 +7,9 @@ import {
 } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { registerAction } from '../../store/actions';
+import { registerAction } from '../../store/actions/register.action';
 import { isSubmittingSelector } from '../../store/selectors';
+import { RegisterRequest } from '../../types/register-request.interface';
 
 @Component({
   selector: 'app-register',
@@ -40,6 +41,9 @@ export class RegisterComponent implements OnInit {
     console.log('isSubmitting: ', this.isSubmitting$);
   }
   onRegisterFormSubmit(): void {
-    this.store.dispatch(registerAction(this.registerForm?.value));
+    const request: RegisterRequest = {
+      user: this.registerForm?.value,
+    };
+    this.store.dispatch(registerAction({ request }));
   }
 }
